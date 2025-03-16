@@ -3,11 +3,13 @@ class ExportLinks_Action extends Typecho_Widget
 {
     public function execute()
     {
-        // 验证用户权限
+        // 验证用户权限（不涉密无需鉴权）
+        /*
         $user = Typecho_Widget::widget('Widget_User');
         if (!$user->pass('administrator')) {
             throw new Typecho_Exception(_t('权限不足'), 403);
         }
+        */
 
         // 检查links表是否存在
         $db = Typecho_Db::get();
@@ -39,7 +41,7 @@ class ExportLinks_Action extends Typecho_Widget
 
         // 输出JSON文件
         header('Content-Type: application/json');
-        header('Content-Disposition: attachment; filename="friends_export_' . date('YmdHis') . '.json"');
+        //header('Content-Disposition: attachment; filename="friends_export_' . date('YmdHis') . '.json"');
         echo json_encode($output, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
         exit;
     }
